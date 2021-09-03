@@ -15,6 +15,8 @@ st.set_page_config(
      )
 
 st.title('Tracking advanced metrics')
+st.write("Penalties are excluded from xG figures")
+
 
 textc='#1d3557'
 linec='#808080'
