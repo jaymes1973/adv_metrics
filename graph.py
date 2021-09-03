@@ -202,4 +202,7 @@ elif metric2 == "None":
 st.pyplot(fig1)
 
 df3=df2.drop(columns=["Opposition", "Gameweek"])
+df3.loc["Total"] = df3.sum(numeric_only=True)
+df3.at['Total', 'Home Team'] = "Total"
+df3.at['Total', 'Away Team'] = "Total"
 st.dataframe((df3).reset_index(drop=True))
