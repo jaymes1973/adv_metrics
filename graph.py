@@ -6,7 +6,7 @@ import streamlit as st
 import pandas as pd
 from highlight_text import ax_text, fig_text
 
-data="02-September-2021 11_32_28 team_stats.csv"
+data="/Users/jaymesmonte/Desktop/Analytics/ScotPremData/fotmob_scraper/output_files/02-September-2021 11_32_28 team_stats.csv"
 
 
 st.set_page_config(
@@ -16,7 +16,6 @@ st.set_page_config(
 
 st.title('Tracking advanced metrics')
 st.write("Penalties are excluded from xG figures")
-
 
 textc='#1d3557'
 linec='#808080'
@@ -51,6 +50,10 @@ df = df.loc[(df['Home Team'] == team)|(df['Away Team'] == team)]
 df['Home Expected goals (xG)']=df['Home Expected goals (xG)']-df['Home xG penalty']
 df['Away Expected goals (xG)']=df['Away Expected goals (xG)']-df['Away xG penalty']
 
+df['Home xG per Shot']=df['Home Expected goals (xG)']/df['Home Total shots']
+df['Away xG per Shot']=df['Away Expected goals (xG)']/df['Away Total shots']
+
+
 df['xG For'] = df.apply(
     lambda x: x["Home Expected goals (xG)"] if x["Home Team"] == team 
     else x["Away Expected goals (xG)"], axis=1)
@@ -83,8 +86,18 @@ df['Goals Against'] = df.apply(
     lambda x: x["Away Goals"] if x["Home Team"] == team 
     else x["Home Goals"], axis=1)
 
+df['xG per shot - For'] = df.apply(
+    lambda x: x["Home xG per Shot"] if x["Home Team"] == team 
+    else x["Away xG per Shot"], axis=1)
+
+df['xG per shot - Against'] = df.apply(
+    lambda x: x["Away xG per Shot"] if x["Home Team"] == team 
+    else x["Home xG per Shot"], axis=1)
+
+
 cols= ['Home Team','Away Team','Opposition','xG For', 'xG Against', 'Goals For', 'Goals Against'
-       ,'xG Open Play For','xG Open Play Against','xG Set Play For','xG Set Play Against']
+       ,'xG Open Play For','xG Open Play Against','xG Set Play For','xG Set Play Against','xG per shot - For',
+       'xG per shot - Against']
 
 df2 = df[cols].reset_index(drop=True)
 
