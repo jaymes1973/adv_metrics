@@ -6,7 +6,7 @@ import streamlit as st
 import pandas as pd
 from highlight_text import ax_text, fig_text
 
-data="/Users/jaymesmonte/Desktop/Analytics/ScotPremData/fotmob_scraper/output_files/02-September-2021 11_32_28 team_stats.csv"
+data="02-September-2021 11_32_28 team_stats.csv"
 
 
 st.set_page_config(
